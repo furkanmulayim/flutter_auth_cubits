@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_auth_cubits/ui/login/cubit/login_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../cubit/login_cubit.dart';
 import '../cubit/login_state.dart';
 
 part '../widget/login_widget.dart';
@@ -20,7 +20,7 @@ class LoginView extends StatelessWidget {
         listener: (context, state) {
           if (state is LoginSuccess) {
             ///State = SUCCESS
-            _goToProfile(context);
+            _goToProfile(context, state.user.accessToken);
           } else if (state is LoginFailed) {
             ///State = FAİLED
             _showSnackBar(context, 'Error:');
@@ -31,14 +31,10 @@ class LoginView extends StatelessWidget {
             ///State = LOADING
             return const Center(child: CircularProgressIndicator());
           }
-          return _buildLoginForm(context);
+          return _LoginPageView();
         },
       ),
     );
-  }
-
-  Widget _buildLoginForm(BuildContext context) {
-    return _LoginPageView();
   }
 
   void _showSnackBar(BuildContext context, String message) {
@@ -46,7 +42,7 @@ class LoginView extends StatelessWidget {
         .showSnackBar(SnackBar(content: Text(message)));
   }
 
-  void _goToProfile(BuildContext context) {
-    context.go('/prof');
+  void _goToProfile(BuildContext context, String accessToken) {
+    context.go('/prof/:$accessToken');
   }
 }

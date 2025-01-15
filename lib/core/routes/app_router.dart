@@ -7,7 +7,7 @@ import '../../ui/profile/view/profile_view.dart';
 class AppRouter {
   //params
   static String loginPath = '/';
-  static String profilePath = '/prof';
+  static String profilePath = '/prof/:accessToken';
 
   static final GoRouter router = GoRouter(
     initialLocation: loginPath,
@@ -21,10 +21,13 @@ class AppRouter {
 
       /// Profile Page
       GoRoute(
-        path: profilePath,
-        builder: (BuildContext context, GoRouterState state) =>
-            const ProfileView(),
-      )
+          path: profilePath,
+          builder: (BuildContext context, GoRouterState state) {
+            final accessToken = state.pathParameters['accessToken']!;
+            return ProfileView(
+              accessToken: accessToken,
+            );
+          })
     ],
   );
 }

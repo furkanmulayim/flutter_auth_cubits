@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter_auth_cubits/common/repository/login_auth/auth_repository.dart';
 
-import '../../../common/repository/auth_repository.dart';
 import 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
@@ -20,5 +20,4 @@ class LoginCubit extends Cubit<LoginState> {
       rethrow;
     }
   }
-
 }

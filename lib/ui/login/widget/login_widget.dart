@@ -1,9 +1,10 @@
-
 part of '../view/login_view.dart';
-class _LoginPageView extends StatelessWidget{
 
-  final TextEditingController usernameController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+class _LoginPageView extends StatelessWidget {
+  final TextEditingController usernameController =
+      TextEditingController(text: 'emilys');
+  final TextEditingController passwordController =
+      TextEditingController(text: 'emilyspass');
 
   @override
   Widget build(BuildContext context) {

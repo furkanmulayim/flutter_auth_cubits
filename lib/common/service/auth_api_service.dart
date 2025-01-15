@@ -23,7 +23,7 @@ class AuthApiService {
         ),
       );
 
-      debugPrint('**** API Response **** : ${response.data}');
+      debugPrint('**** Auth API Response **** : ${response.data}');
       if (response.statusCode == 200) {
         return UserModel.fromJson(response.data);
       } else {

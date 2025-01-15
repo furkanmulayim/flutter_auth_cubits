@@ -11,6 +11,8 @@ class Urlpaths {
 
 class ApiConstants {
   //urls
-  static const String authLoginUrl = '${BaseUrl.baseUrl}${Urlpaths.authLoginPath}';
-  static const String authMeUrl = '${BaseUrl.baseUrl}${Urlpaths.authLoginMePath}';
+  static const String authLoginUrl =
+      '${BaseUrl.baseUrl}${Urlpaths.authLoginPath}';
+  static const String authMeUrl =
+      '${BaseUrl.baseUrl}${Urlpaths.authLoginMePath}';
 }
