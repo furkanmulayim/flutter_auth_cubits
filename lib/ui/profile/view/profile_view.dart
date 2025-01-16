@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class ProfileView extends StatefulWidget {
   final String accessToken;
 
-  const ProfileView({Key? key, required this.accessToken}) : super(key: key);
+  const ProfileView({super.key, required this.accessToken});
 
   @override
   State<ProfileView> createState() => _ProfileViewState();
@@ -20,13 +20,14 @@ class _ProfileViewState extends State<ProfileView> {
   @override
   void initState() {
     super.initState();
-    print('GELDIMI: ${widget.accessToken}');
     _profileCubit = ProfileCubit(
       CurrentAuthRepositoryImplements(
         currentAuthService: CurrenrAuthApiService(),
       ),
     );
-    _profileCubit.getCurrentUser(widget.accessToken);
+    if (widget.accessToken.isNotEmpty) {
+      _profileCubit.getCurrentUser(widget.accessToken);
+    }
   }
 
   @override
@@ -37,8 +38,8 @@ class _ProfileViewState extends State<ProfileView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => _profileCubit,
+    return BlocProvider.value(
+      value: _profileCubit,
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Profile'),
@@ -47,16 +48,12 @@ class _ProfileViewState extends State<ProfileView> {
           builder: (context, currentState) {
             if (currentState is ProfileLoading) {
               return const Center(child: CircularProgressIndicator());
-            }
-
-            ///else if (currentState is ProfileSuccess) {
-            /// return ederek UI GOSTERİLECEK
-            //}
-            else if (currentState is ProfileFailed) {
+            } else if (currentState is ProfileSuccess) {
+              debugPrint("PROFILE SUCCESS :D ");
+            } else if (currentState is ProfileFailed) {
               return const Center(child: Text('Failed to load profile.'));
-            } else {
-              return const Center(child: Text('Unknown state.'));
             }
+            return const Center(child: Text('GENEL'));
           },
         ),
       ),

@@ -3,6 +3,7 @@ import 'package:flutter_auth_cubits/ui/login/cubit/login_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/routes/app_router.dart';
 import '../cubit/login_state.dart';
 
 part '../widget/login_widget.dart';
@@ -43,6 +44,6 @@ class LoginView extends StatelessWidget {
   }
 
   void _goToProfile(BuildContext context, String accessToken) {
-    context.go('/prof/:$accessToken');
+    context.goNamed(RoutesPath.profilePath.name, extra: accessToken);
   }
 }
