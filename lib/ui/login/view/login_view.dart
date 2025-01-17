@@ -18,21 +18,22 @@ class LoginView extends StatelessWidget {
 
       ///CONSUMER -> State'i Dinliyor + UI'ı Güncelliyor.
       body: BlocConsumer<LoginCubit, LoginState>(
-        listener: (context, state) {
-          if (state is LoginSuccess) {
-            ///State = SUCCESS
-            _goToProfile(context, state.user.accessToken);
-          } else if (state is LoginFailed) {
-            ///State = FAİLED
-            _showSnackBar(context, 'Error:');
-          }
-        },
+        ///Builder -> State'e göre UI'ı Güncelliyor.
         builder: (context, state) {
           if (state is LoginLoading) {
             ///State = LOADING
             return const Center(child: CircularProgressIndicator());
           }
           return _LoginPageView();
+        },
+
+        ///Listener -> State'i Dinliyor
+        listener: (context, state) {
+          if (state is LoginSuccess) {
+            _goToProfile(context, state.user.accessToken);
+          } else if (state is LoginFailed) {
+            _showSnackBar(context, 'Error: HATA HATA');
+          }
         },
       ),
     );

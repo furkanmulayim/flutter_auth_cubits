@@ -5,6 +5,8 @@ import 'package:flutter_auth_cubits/ui/profile/cubit/profile_cubit.dart';
 import 'package:flutter_auth_cubits/ui/profile/cubit/profile_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../widget/personal_info.dart';
+
 class ProfileView extends StatefulWidget {
   final String accessToken;
 
@@ -45,18 +47,36 @@ class _ProfileViewState extends State<ProfileView> {
           title: const Text('Profile'),
         ),
         body: BlocBuilder<ProfileCubit, ProfileState>(
-          builder: (context, currentState) {
-            if (currentState is ProfileLoading) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (currentState is ProfileSuccess) {
-              debugPrint("PROFILE SUCCESS :D ");
-            } else if (currentState is ProfileFailed) {
-              return const Center(child: Text('Failed to load profile.'));
+          builder: (context, profileState) {
+            if (profileState is ProfileLoading) {
+              return const WidgetForLoadingState();
+            } else if (profileState is ProfileSuccess) {
+              return PersonalInfo(user: profileState.currentUser);
+            } else if (profileState is ProfileFailed) {
+              const WidgetForFailedState();
             }
-            return const Center(child: Text('GENEL'));
+            return const Center(child: Text('HİÇBİR STATE UYMADI...'));
           },
         ),
       ),
     );
+  }
+}
+
+class WidgetForFailedState extends StatelessWidget {
+  const WidgetForFailedState({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(child: Text('FAİLED STATE'));
+  }
+}
+
+class WidgetForLoadingState extends StatelessWidget {
+  const WidgetForLoadingState({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(child: CircularProgressIndicator());
   }
 }
